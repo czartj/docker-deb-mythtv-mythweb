@@ -1,0 +1,5 @@
+#!/command/with-contenv sh
+##!/command/execlineb -P
+set -e
+. /etc/apache2/envvars
+exec apache2 -DNO_DETACH
