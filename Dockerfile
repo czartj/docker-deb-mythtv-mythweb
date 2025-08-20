@@ -3,7 +3,7 @@ FROM czartj/docker-deb-mythtv:latest
 RUN \
     apt-get update && \
     apt-get upgrade -y && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends -t stable-backports mythweb
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends mythweb
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /var/tmp/*
 
