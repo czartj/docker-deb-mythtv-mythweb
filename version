@@ -1,3 +1,8 @@
+02-25-26
+from 'czartj/docker-deb-mythtv' image:
+debian '13.3'
+mythtv '1:35.0+really35+fixes20260214.gitcf1312c-dmo0+deb13u1'
+
 01-08-26
 from 'czartj/docker-deb-mythtv' image:
 debian '13.2'
