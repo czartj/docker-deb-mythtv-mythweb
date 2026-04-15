@@ -9,6 +9,8 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /var/tmp/*
 
 # Add our files...
 ADD rootfs /
+# don't need a default page...
+RUN rm /etc/apache2/sites-enabled/000-default.conf
 
 ENTRYPOINT ["/init"]
 
