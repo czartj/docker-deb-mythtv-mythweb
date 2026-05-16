@@ -27,6 +27,29 @@ BEGIN {
 {
   line = $0
 
+
+  # ------------------------------------------------------------------
+  # Detect "Alias /mythweb …" and remember the path
+  # ------------------------------------------------------------------
+  if (line ~ /^[[:space:]]*Alias[[:space:]]+\/mythweb[[:space:]]+(.+)/) {
+    aliasDest = $NF                # last field = filesystem path
+    print line                     # print the Alias line
+    after_alias = 1                # we will need to insert DocumentRoot after it
+    next
+  }
+
+  # ------------------------------------------------------------------
+  # The line immediately after the Alias – add DocumentRoot if missing
+  # ------------------------------------------------------------------
+  if (after_alias == 1) {
+    after_alias = 0
+    # Only insert if the current line is NOT already a DocumentRoot line
+    if (line !~ /^[[:space:]]*DocumentRoot[[:space:]]+/) {
+      print "  DocumentRoot " aliasDest
+    }
+    # Continue processing this line normally (do not skip)
+  }
+
   # Detect the opening <Directory> line
   if (in_block == 0 && index(line, start) > 0) {
     in_block = 1
