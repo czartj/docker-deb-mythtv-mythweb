@@ -2,8 +2,12 @@
 
 echo "Setting up mytweb config..."
 
-if [ -n ${MYTH_DATABASE_HOST} ]; then
-    sed -i "s/\(setenv[[:space:]]\+db_server[[:space:]]\+\)\"[^\"]*\"/\1\"$MYTH_DATABASE_HOST\"/" /etc/mythtv/mythweb-mysql.conf
+if [ -n "${MYTH_DATABASE_HOST}" ]; then
+    db_server_host="$MYTH_DATABASE_HOST"
+    if [ -n "${MYTH_DATABASE_PORT}" ] && [ "${MYTH_DATABASE_PORT}" != "3306" ]; then
+        db_server_host="$db_server_host:$MYTH_DATABASE_PORT"
+    fi
+    sed -i "s/\(setenv[[:space:]]\+db_server[[:space:]]\+\)\"[^\"]*\"/\1\"$db_server_host\"/" /etc/mythtv/mythweb-mysql.conf
 fi
 
 if [ -n ${MYTH_DATABASE_NAME} ]; then
